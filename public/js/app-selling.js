@@ -4,12 +4,19 @@ const appLogin = new Vue ({
         product: {
             code: '',
             name: '',
-            price: 500,
+            price: '',
             count: 1,
         },
+        user: {
+            id: ''
+        },
+        articles: {},
         clientMount: '',
         productCount: 0,
         facture: {},
+        state: {
+            isDone: false,
+        }
     },
     methods: {
         calcMonnaie: function () {
@@ -33,6 +40,9 @@ const appLogin = new Vue ({
                 let product = this.facture[i]
                 mount += product.price * product.count
             }
+            if (isNaN(mount)) {
+                mount = 0
+            }
             const mountHTML = document.querySelector('#mountDash')
             mountHTML.innerText = mount + ' XOF'
             return mount
@@ -41,22 +51,22 @@ const appLogin = new Vue ({
 
         },
         resetFact: function () {
-            this.facture = {}
-        },
-        printFact: function () {
-            const modal = document.querySelector('#factureModal #facturePrint')
-            let WinPrint = window.open('', '', 'left=0, top=0, toolbar=0, scrollbars=0, status=0, width=387px, height='+modal.clientHeight+'px, font-size=8px !important');
-            WinPrint.document.write(modal.innerHTML)
-            WinPrint.document.close()
-            WinPrint.focus()
-            WinPrint.print()
-            WinPrint.close()
             this.facture = {};
             this.product.code = ''
             this.product.name = ''
-            this.product.price = 500
+            this.product.price = ''
             this.product.count = 1
             this.productCount = 0
+        },
+        printFact: function () {
+            // const modal = document.querySelector('#factureModal #facturePrint')
+            // let WinPrint = window.open('', '', 'left=0, top=0, toolbar=0, scrollbars=0, status=0, width=387px, height='+modal.clientHeight+'px, font-size=8px !important');
+            // WinPrint.document.write(modal.innerHTML)
+            // WinPrint.document.close()
+            // WinPrint.focus()
+            // WinPrint.print()
+            // WinPrint.close()
+            alert('Impression et de la facture')
         },
         addProduct: function () {
             if (this.product.name !== '' && this.product.code.length === 8)
@@ -71,7 +81,7 @@ const appLogin = new Vue ({
                 this.productCount++
                 this.product.code = ''
                 this.product.name = ''
-                this.product.price = 500
+                this.product.price = 0
                 this.product.count = 1
             }
         },
@@ -97,6 +107,56 @@ const appLogin = new Vue ({
 
             modal.innerHTML = table + result
             mountHTML.innerText = mount + ' XOF'
+        },
+        loadProductName: function () {
+            for (let i = 0; i < this.articles.length; i++) {
+                const article = this.articles[i]
+                if (article.code == this.product.code) {
+                    this.product.name = article.name
+                    this.product.price = article.price
+                    break
+                }
+            }
+            this.calculMount()
+        },
+        loadProductCode: function () {
+            for (let i = 0; i < this.articles.length; i++) {
+                const article = this.articles[i]
+                if (article.name == this.product.name) {
+                    this.product.code = article.code
+                    this.product.price = article.price
+                    break
+                }
+            }
+            this.calculMount()
+        },
+        postfacture: function () {
+            let token = document.querySelector('meta[name="csrf-token"]');
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+            console.log(token.content);
+            axios.post('/selling', {facture: this.facture})
+                .then((response) => {
+                    let data = response.data
+                    if (data.pass) {
+                        this.printFact()
+                        this.resetFact()
+                    } else {
+                        console.log(data.notExist)
+                    }
+                })
+                .catch((error) => {
+                    console.error(error.data)
+                })
         }
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            axios.get('/selling/articles/json/')
+                .then((res)=>{
+                    this.articles = res.data
+                })
+                .catch((err)=>{console.log(err)})
+            this.user.id = document.querySelector('#userIdValue').value
+        })
     }
 })

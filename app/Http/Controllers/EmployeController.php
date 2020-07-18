@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Validator;
 
 class EmployeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     private function valid(array $data, $withImage = true){
 
         $messages = [
@@ -47,7 +57,7 @@ class EmployeController extends Controller
     public function index()
     {
         $employes = User::where('level', '=', 0)->get();
-        return view('owners.employees.all', compact('employes'));
+        return view('owners.employes.all', compact('employes'));
     }
 
     /**
@@ -58,7 +68,7 @@ class EmployeController extends Controller
     public function create()
     {
         $sellpoints = Sellpoint::all();
-        return view('owners.employees.create', compact('sellpoints'));
+        return view('owners.employes.create', compact('sellpoints'));
     }
 
     /**

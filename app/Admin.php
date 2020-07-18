@@ -28,16 +28,16 @@ class Admin extends Model
 
     public function warehouses()
     {
-        return $this->hasMany(Warehouse::class, 'user_id', 'id');
+        return $this->hasMany(Warehouse::class, 'admin_id');
     }
 
     public function articles()
     {
-        return $this->hasMany(Article::class, 'user_id', 'id');
+        return $this->hasMany(Article::class, 'admin_id');
     }
 
     public function sellpoints()
     {
-        return $this->hasMany(Sellpoint::class, 'user_id', 'id');
+        return $this->hasMany(Sellpoint::class, 'admin_id');
     }
 }

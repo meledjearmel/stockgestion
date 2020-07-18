@@ -34,4 +34,9 @@ class Employe extends Model
         return $this->belongsTo(Sellpoint::class);
     }
 
+    public function sellings()
+    {
+        return $this->hasMany(Selling::class, 'user_id');
+    }
+
 }

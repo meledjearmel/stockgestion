@@ -13,12 +13,17 @@ class Sellpoint extends Model
 
     public function articles ()
     {
-        return $this->belongsToMany(Article::class)->withPivot('quantity')->withTimestamps();;
+        return $this->belongsToMany(Article::class)->withPivot('quantity')->withTimestamps();
     }
 
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function sellings()
+    {
+        return $this->hasMany(Selling::class);
     }
 
     protected $fillable = [

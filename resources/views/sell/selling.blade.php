@@ -30,27 +30,12 @@
                         </div>
                         <div class="modal-footer justify-content-center">
                             <button @click="resetFact" type="button" class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">SUPPRIMER LA FACTURE</button>
-                            <button @click="printFact" type="button" class="btn btn-success tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">VALIDER</button>
+                            <button @click="postfacture" type="button" class="btn btn-success tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">VALIDER</button>
                         </div>
                     </div>
                 </div><!-- modal-dialog -->
             </div>
-            <div class="br-pagetitle d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <i class="icon ion-bag"></i>
-                    <div class="ml-3">
-                        <h4>Point de vente</h4>
-                        <p class="mg-b-0">Vendez sans vous préocuper du point</p>
-                    </div>
-                </div>
-                <div class="ht-lg-40 bg-gray-200 pd-x-20 d-lg-flex align-items-center justify-content-center">
-                    <ul class="nav nav-effect nav-effect-1 flex-column flex-lg-row" role="tablist">
-                        <li @click.prevent="loadHome" class="nav-item"><a class="nav-link" data-toggle="tab" href="{{ route('sellboard') }}" role="tab">Acceuil</a></li>
-                        <li @click.prevent="loadSell" class="nav-item"><a class="nav-link active" data-toggle="tab" href="{{ route('selling') }}" role="tab">Vendre</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="br-pagebody">
+            <div style="height: calc(100vh - 60px) !important;" class="br-pagebody d-flex justify-content-center align-items-center">
                 <div class="br-section-wrapper mr-5 pd-b-25-force pd-t-30-force" style="">
                     <div class="form-layout form-layout-3">
                     <div class="row mg-b-25">
@@ -59,16 +44,23 @@
                         </div><!-- col-4 -->
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input v-model.trim.lazy="product.code" style="font-size: 1.2em !important;" class="form-control text-center text-uppercase" type="text" name="code" value="" maxlength="8" placeholder="CODE DU PRODUIT">
+                                <input v-model.trim="product.code" @change="loadProductName" id="code" style="font-size: 1.2em !important;" class="form-control text-center text-uppercase" autocomplete="" type="text" name="code" value="" maxlength="8" placeholder="CODE DU PRODUIT">
+                                <datalist id="code">
+                                    <option v-for="article in articles" :value="article.code"></option>
+                                </datalist>
                             </div>
                         </div><!-- col-4 -->
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input v-model.trim.lazy="product.name" style="font-size: 1.2em !important;" class="form-control text-center  text-uppercase" type="text" name="name" value="" placeholder="NOM DU PRODUIT">
+                                <input v-model.trim="product.name" @change="loadProductCode" id="name" style="font-size: 1.2em !important;" class="form-control text-center  text-uppercase" autocomplete="" type="text" name="name" value="" placeholder="NOM DU PRODUIT">
+                                <datalist id="name">
+                                    <option v-for="article in articles" :value="article.name"></option>
+                                </datalist>
                             </div>
                         </div><!-- col-4 -->
                     </div><!-- row -->
                     <div class="row mg-b-25">
+                        <input id="userIdValue" type="hidden" value="{{ Auth::user()->id }}">
                         <div class="col-lg-6">
                             <div class="form-group bg-gray-200">
                                 <input v-model="product.price" style="font-size: 1.2em !important; cursor: not-allowed" class="form-control text-center disabled text-uppercase" type="text" name="price" value="" placeholder="PRIX UNITAIRE" disabled>
@@ -97,7 +89,7 @@
                         <button @click.prevent="delRecentProduct" style="cursor: pointer" class="m-2 btn btn-danger btn-with-icon">
                             <div class="ht-40">
                                 <span class="icon wd-40"><i class="fa fa-trash"></i></span>
-                                <span class="pd-x-15">SUPRIMER LE PRODUIT</span>
+                                <span class="pd-x-15">SUPRIMER UN PRODUIT</span>
                             </div>
                         </button>
                         <button @click.prevent="addProduct" style="cursor: pointer" class="m-2 btn btn-primary btn-with-icon">

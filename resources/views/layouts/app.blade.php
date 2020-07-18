@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }}</title>
 
@@ -34,17 +35,30 @@
     @yield('css-script')
 </head>
 
-<body>
+<body class="collapsed-menu">
 <div class="br-logo"><a href="#"><span>[</span>Stock<i>Gestion</i><span>]</span></a></div>
 <div class="br-sideleft overflow-y-auto" id="navigation">
     <label class="sidebar-label pd-x-10 mg-t-20 op-3">Navigation</label>
     <ul class="br-sideleft-menu">
         <li class="br-menu-item">
-            <a href="" class="br-menu-link">
+            <a
+                @hasrole('seller')
+                    href="{{ route('selling.index') }}"
+                    class="br-menu-link {{ request()->getRequestUri() === '/selling' ? 'active' : '' }}"
+                @endhasrole
+            >
                 <i class="menu-item-icon icon ion-ios-home-outline tx-24"></i>
-                <span class="menu-item-label">Dashboard</span>
+                <span class="menu-item-label">
+                    @hasrole('seller')
+                        Tableau de vente
+                    @endhasrole
+                    @hasrole('admin|manager')
+                        Dashboard
+                    @endhasrole
+                </span>
             </a><!-- br-menu-link -->
         </li><!-- br-menu-item -->
+        @hasrole('admin|manager')
         <li class="br-menu-item">
             <a href="{{ route('notify') }}" class="br-menu-link {{ request()->getRequestUri() === '/notification' ? 'active' : '' }}">
                 <i class="menu-item-icon icon ion-ios-bell-outline tx-24"></i>
@@ -54,6 +68,7 @@
                 <span class="menu-item-label">Notification</span>
             </a><!-- br-menu-link -->
         </li><!-- br-menu-item -->
+        @endhasrole
         @hasrole('admin')
         <li class="br-menu-item">
             <a href="#" class="br-menu-link {{ strpos(request()->getRequestUri(), 'warehouse')  ? 'active show-sub' : '' }} with-sub">
@@ -109,13 +124,12 @@
         @endhasrole
         @hasrole('seller')
         <li class="br-menu-item">
-            <a href="#" class="br-menu-link {{ strpos(request()->getRequestUri(), 'selling')  ? 'active show-sub' : '' }} with-sub">
+            <a href="#" class="br-menu-link {{ $show ?? ''  ? 'active show-sub' : '' }} with-sub">
                 <i class="menu-item-icon ion-cash tx-20"></i>
-                <span class="menu-item-label">Vente</span>
+                <span class="menu-item-label">Ma vente</span>
             </a><!-- br-menu-link -->
             <ul class="br-menu-sub">
-                <li class="sub-item"><a href="" class="sub-link">Tableau de vente</a></li>
-                <li class="sub-item"><a href="" class="sub-link">Bilan de vente</a></li>
+                <li class="sub-item"><a href="{{ route('selling.show', Auth::id()) }}" class="sub-link {{ $show ?? ''  ? 'active' : '' }}">Bilan de vente</a></li>
             </ul>
         </li><!-- br-menu-item -->
         @endhasrole

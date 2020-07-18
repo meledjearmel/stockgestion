@@ -21,6 +21,11 @@ class Article extends Model
         return $this->belongsToMany(Warehouse::class)->withPivot('quantity')->withTimestamps();
     }
 
+    public function sellings()
+    {
+        return $this->hasMany(Selling::class);
+    }
+
     protected $fillable = [
         'code', 'name', 'caracts', 'img_url', 'price',
     ];

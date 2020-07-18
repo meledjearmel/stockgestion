@@ -13,7 +13,7 @@ class Warehouse extends Model
 
     public function articles ()
     {
-        return $this->belongsToMany(Article::class)->withPivot('quantity')->withTimestamps();;
+        return $this->belongsToMany(Article::class)->withPivot('quantity')->withTimestamps();
     }
 
     protected $fillable = [

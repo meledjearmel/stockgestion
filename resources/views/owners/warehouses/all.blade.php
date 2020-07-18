@@ -69,7 +69,7 @@
 @section('child-js')
 <script>
     $('#datatable1').DataTable({
-        responsive: true
+        responsive: true,
         lengthMenu: [5],
         language: {
             searchPlaceholder: 'Recherche...',
