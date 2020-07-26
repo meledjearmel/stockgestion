@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Employe;
+use App\Sellpoint;
+use App\User;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller {
@@ -93,4 +96,26 @@ class HomeController extends Controller {
 			return view('owners.dashboard');
 		}
 	}
+
+	public function edit($username)
+    {
+        if (Auth::user()->username === $username) {
+
+            $user = Auth::user();
+            return view('auth.settings.profil', compact('user'));
+
+        }
+        abort(404);
+    }
+
+    public function setting($username)
+    {
+        if (Auth::user()->username === $username) {
+
+            $user = Auth::user();
+            return view('auth.settings.settings', compact('user'));
+
+        }
+        abort(404);
+    }
 }

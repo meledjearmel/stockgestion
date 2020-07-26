@@ -2,28 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a35a90ca-dc40-4cb9-bbd8-a5d8c0e27d88" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/blade.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/auth/settings/profil.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/auth/settings/settings.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ArticleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SellingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SellingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_15_132434_add_sellpointid_to_users.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_15_132434_add_sellpointid_to_users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_15_132659_create_pivots_tables.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_15_132659_create_pivots_tables.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_15_133136_create_sellings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_15_133136_create_sellings_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_16_212958_add_articleid_on_sellings.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_16_212958_add_articleid_on_sellings.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app-sellpoint-supply.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app-sellpoint-supply.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/owners/articles/all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/articles/all.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/owners/articles/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/articles/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/owners/sellpoints/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/sellpoints/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/owners/sellpoints/show/setting.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/sellpoints/show/setting.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/owners/sellpoints/show/supply.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/sellpoints/show/supply.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sell/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sell/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sell/stockage.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/owners/employes/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/employes/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/owners/employes/edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/settings/profil.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/settings/sets.blade.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,26 +147,27 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Blade" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/owners/articles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/owners/employes" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="Configurable.PHP.Blade" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views" />
-      <recent name="$PROJECT_DIR$/resources/views/auth" />
-      <recent name="$PROJECT_DIR$/resources/views/owners/warehouses" />
-      <recent name="$PROJECT_DIR$/resources/views/layouts" />
-      <recent name="$PROJECT_DIR$/resources/views/owners" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/owners/articles" />
       <recent name="$PROJECT_DIR$/public/js/charts" />
       <recent name="$PROJECT_DIR$/resources/views/owners/supply" />
       <recent name="$PROJECT_DIR$/storage/app/public" />
       <recent name="$PROJECT_DIR$/resources/views/owners/sellpoints" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/auth/settings" />
+      <recent name="$PROJECT_DIR$/resources/views/owners/employes" />
+      <recent name="$PROJECT_DIR$/resources/views/auth" />
+      <recent name="$PROJECT_DIR$/resources/views" />
+      <recent name="$PROJECT_DIR$/resources/views/owners/warehouses" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.phpunit.xml">
@@ -260,6 +250,8 @@
       <workItem from="1595579818028" duration="272000" />
       <workItem from="1595580516434" duration="2776000" />
       <workItem from="1595667467686" duration="27501000" />
+      <workItem from="1595729786481" duration="20057000" />
+      <workItem from="1595782634281" duration="3168000" />
     </task>
     <servers />
   </component>
@@ -287,22 +279,22 @@
       <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state x="533" y="206" width="281" height="392" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.30.1366.738@0.30.1366.738" timestamp="1594817781992" />
-    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595096998691">
+    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595761163793">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.30.1366.738@0.30.1366.738" timestamp="1595096998691" />
-    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl" timestamp="1594824502728">
+    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.30.1366.738@0.30.1366.738" timestamp="1595761163793" />
+    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl" timestamp="1595763301404">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl/0.30.1366.738@0.30.1366.738" timestamp="1594824502728" />
+    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl/0.30.1366.738@0.30.1366.738" timestamp="1595763301404" />
     <state width="164" height="456" key="HiddenNamespacesPopup" timestamp="1593107042389">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state width="164" height="456" key="HiddenNamespacesPopup/0.30.1366.738@0.30.1366.738" timestamp="1593107042389" />
-    <state x="186" y="30" width="977" height="733" key="SettingsEditor" timestamp="1594746936708">
+    <state x="186" y="30" width="977" height="733" key="SettingsEditor" timestamp="1595759890495">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state x="186" y="30" width="977" height="733" key="SettingsEditor/0.30.1366.738@0.30.1366.738" timestamp="1594746936708" />
+    <state x="186" y="30" width="977" height="733" key="SettingsEditor/0.30.1366.738@0.30.1366.738" timestamp="1595759890495" />
     <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1595542815161">
       <screen x="0" y="30" width="1366" height="738" />
     </state>

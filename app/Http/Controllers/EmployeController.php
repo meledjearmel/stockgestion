@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Employe;
+use App\Rules\OldPassword;
 use App\Sellpoint;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class EmployeController extends Controller
 {
@@ -22,7 +25,14 @@ class EmployeController extends Controller
         $this->middleware('auth');
     }
 
-    private function valid(array $data, $withImage = true){
+    private function adminCheck()
+    {
+        if(!Auth::user()->hasRole('admin')) {
+           abort(403);
+        }
+    }
+
+    private function valid(array $data, $withImage = true, $profil = false, $changePassword = false, $model = null, $accountSets = false){
 
         $messages = [
             'required' => 'Ce champs est requis.',
@@ -32,20 +42,57 @@ class EmployeController extends Controller
             'mimes' => 'Charger l\'image dans un format jpg,jpeg ou png',
             'max' => 'La taille de l\'image ne doit pas depasser 1Mo',
             'numeric' => 'Ce champs doit contenir uniquement des chiffes',
-            'unique' => 'Cet e-mail est déjà été utilisé',
-            'email' => 'Entrer une bonne adresse email'
+            'unique' => 'Cet e-mail est déjà utilisé',
+            'email' => 'Entrer une bonne adresse email',
+            'confirmed' => 'Le mot de passe n\'a pas ete confirmer',
+            'same' => 'Les mot de passe sont diffenrents',
         ];
 
-        return Validator::make($data, [
-            'name' => 'required|regex:/^[a-z][a-z0-9 \-]+/i|min:3',
-            'lastname' => 'required|regex:/^[a-z][a-z0-9 \-]+/i|min:3',
-            'sex' => 'required',
-            'contact' => 'required|regex:/^\([0-9]{3}\) [0-9]{2}(\-[0-9]{3}){2}/i',
-            'role' => 'required',
-            'email' => 'required|email|unique:users',
-            'picture' => $withImage ? 'image|mimes:jpg,jpeg,png|max:1000' : 'nullable',
-            'sellpoint_id' => 'required|numeric'
-        ], $messages);
+        if ($profil) {
+
+            return Validator::make($data, [
+                'name' => 'required|regex:/^[a-z][a-z0-9 \-]+/i|min:3',
+                'lastname' => 'required|regex:/^[a-z][a-z0-9 \-]+/i|min:3',
+                'contact' => 'required|regex:/^\([0-9]{3}\) [0-9]{2}(\-[0-9]{3}){2}/i',
+                'picture' => $withImage ? 'image|mimes:jpg,jpeg,png|max:1000' : 'nullable',
+            ], $messages);
+
+        } elseif ($changePassword) {
+
+            return Validator::make($data, [
+                'old_pass' => ['required', new OldPassword($model)],
+                'password' => 'required|confirmed|min:8',
+                'password_confirmation' => 'required|same:password|min:8'
+            ], $messages);
+
+        } elseif ($accountSets) {
+
+            $messages = [
+                'unique' => 'La valeur de ce champs est déjà utilisé',
+                'required' => 'Ce champs est requis.',
+                'min' => 'Un minimun de :min caractères est requis pour ce champs.',
+                'regex' => 'Mauvais format du champs',
+            ];
+
+            return Validator::make($data, [
+                'email' => ($data['email']) ? 'email|unique:users' : 'nullable',
+                'username' => ($data['username']) ? 'regex:/^[a-z][a-z0-9 \-]+/i|min:3|unique:users' : 'nullable',
+            ], $messages);
+
+        } else {
+
+            return Validator::make($data, [
+                'name' => 'required|regex:/^[a-z][a-z ]+/i|min:3',
+                'lastname' => 'required|regex:/^[a-z][a-z ]+/i|min:3',
+                'sex' => 'required',
+                'contact' => 'required|regex:/^\([0-9]{3}\) [0-9]{2}(\-[0-9]{3}){2}/i',
+                'role' => 'required',
+                'email' => 'required|email|unique:users',
+                'picture' => $withImage ? 'image|mimes:jpg,jpeg,png|max:1000' : 'nullable',
+                'sellpoint_id' => 'required|numeric'
+            ], $messages);
+
+        }
 
     }
 
@@ -56,6 +103,7 @@ class EmployeController extends Controller
      */
     public function index()
     {
+        $this->adminCheck();
         $employes = User::where('level', '=', 0)->get();
         return view('owners.employes.all', compact('employes'));
     }
@@ -67,6 +115,7 @@ class EmployeController extends Controller
      */
     public function create()
     {
+        $this->adminCheck();
         $sellpoints = Sellpoint::all();
         return view('owners.employes.create', compact('sellpoints'));
     }
@@ -79,6 +128,7 @@ class EmployeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->adminCheck();
         $existImage = $request->file('picture') ? true : false;
 
         $validator = $this->valid($request->all(), $existImage);
@@ -147,7 +197,7 @@ class EmployeController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->adminCheck();
     }
 
     /**
@@ -166,11 +216,118 @@ class EmployeController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Auth::id() == $id) {
+
+            $user = User::find($id);
+
+            if ($request->get('profil') === 'on') {
+
+                $existImage = $request->file('picture') ? true : false;
+
+                $validator = $this->valid($request->all(), $existImage, true);
+
+                if ($validator->fails()) {
+                    return redirect()
+                        ->route('profil', Auth::user()->username)
+                        ->withErrors($validator)
+                        ->withInput();
+                }
+
+                if ($user->name !== $request->get('name')) {
+                    $user->name = $request->get('name');
+                }
+
+                if ($user->lastname !== $request->get('lastname')) {
+                    $user->lastname = $request->get('lastname');
+                }
+
+                if ($user->contact !== $request->get('contact')) {
+                    $user->contact = $request->get('contact');
+                }
+
+                if ($existImage) {
+                    Storage::delete($user->picture);
+                    $user->picture = $request->file('picture')->store('public/img/profil/'.$user->username);
+                }
+
+                $user->save();
+
+                $nameChange = $user->wasChanged('name');
+                $lastnameChange = $user->wasChanged('lastname');
+                $contactChange = $user->wasChanged('contact');
+                $picChange = $user->wasChanged('picture');
+
+                return redirect()->route('profil', $user->username)->with([
+                    'name' => $nameChange,
+                    'lastname' => $lastnameChange,
+                    'contact' => $contactChange,
+                    'picture' => $picChange,
+                ]);
+
+            }
+            elseif ($request->get('account') === 'on') {
+
+                $datas = [
+                    'email' => ($user->email !== $request->get('email')) ? $request->get('email') : null,
+                    'username' => ($user->username !== $request->get('username')) ? $request->get('username') : null,
+                ];
+
+                $validator = $this->valid($datas, false, false, false, null, true);
+
+                if ($validator->fails()) {
+                    return redirect()
+                        ->route('setting', Auth::user()->username)
+                        ->withErrors($validator)
+                        ->withInput();
+                }
+
+                if ($user->username !== $request->get('username')) {
+                    $path = str_replace($user->username, $request->get('username'), $user->picture);
+                    $directory = 'public/img/profil/'.$user->username;
+                    Storage::move($user->picture, $path);
+                    Storage::deleteDirectory($directory);
+                    $user->username = $request->get('username');
+                    $user->picture = $path;
+                }
+
+                if ($user->email !== $request->get('email')) {
+                    $user->email = $request->get('email');
+                }
+
+                $user->save();
+
+                $email = $user->wasChanged('email');
+                $username = $user->wasChanged('username');
+
+                Auth::setUser($user);
+
+                return redirect()->route('setting', Auth::user()->username)->with(['email' => $email, 'username' => $username]);
+
+            }
+            elseif ($request->get('change_password') === 'on') {
+
+                $validator = $this->valid($request->all(), false, false, true, $user);
+
+                if ($validator->fails()) {
+                    return redirect()
+                        ->route('setting', Auth::user()->username)
+                        ->withErrors($validator)
+                        ->withInput();
+                }
+
+                $user->password = Hash::make($request->get('password'));
+                $user->save();
+
+                return redirect()->route('setting', Auth::user()->username)->with(['password' => true]);
+
+            }
+
+        }
+        abort(404);
     }
 
     /**

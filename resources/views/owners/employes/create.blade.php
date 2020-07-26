@@ -104,6 +104,11 @@
                                     <div class="form-group">
                                         <label class="form-control-label">Photo: </label>
                                         <input name="picture" accept=".jpg, .jpeg, .png" id="photo" type="file" id="file">
+                                        @error('picture')
+                                        <ul class="parsley-errors-list filled" id="parsley-id-26">
+                                            <li class="parsley-required">{{ $message }}</li>
+                                        </ul>
+                                        @enderror
                                     </div>
                                 </div><!-- col-4 -->
 

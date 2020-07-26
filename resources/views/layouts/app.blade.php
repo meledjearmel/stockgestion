@@ -182,17 +182,20 @@
 
         </div><!-- input-group -->
     </div><!-- br-header-left -->
+    @php
+        $profil = str_replace('public', 'storage', Auth::user()->picture);
+    @endphp
     <div class="br-header-right">
         <nav class="nav">
             <div class="dropdown">
                 <a href="#" class="nav-link nav-link-profile" data-toggle="dropdown">
                     <span class="logged-name hidden-md-down">{{ Auth::user()->lastname }}</span>
-                    <img src="{{ asset('img/undraw_profile_pic_ic5t.svg') }}" class="wd-32 rounded-circle" alt="">
+                    <img id="profil" src="{{ asset($profil) }}" class="wd-32 rounded-circle" alt="">
                     <span class="square-10 bg-success"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-250">
                     <div class="tx-center">
-                        <a href="#"><img src="{{ asset('img/undraw_profile_pic_ic5t.svg') }}" class="wd-80 rounded-circle" alt=""></a>
+                        <a href="#"><img id="picture" src="{{ asset($profil) }}" class="wd-80 rounded-circle" alt=""></a>
                         <h6 class="logged-fullname">{{ Auth::user()->lastname }} {{ Auth::user()->name }}</h6>
                         <p>{{ Auth::user()->email }}</p>
                     </div>
@@ -377,9 +380,21 @@
                 }
             }
         });
-        $(function () {
+        (function () {
+            let profil = document.querySelector('#profil'),
+                picture = document.querySelector('#picture'),
 
-        });
+                tryImg = function (Element) {
+                    testImg = new Image();
+                    testImg.onerror = () => {
+                        Element.src = location.origin + '/img/undraw_profile_pic_ic5t.svg';
+                    }
+                    testImg.src = Element.src
+                }
+
+            tryImg(profil)
+            tryImg(picture)
+        })()
     </script>
     </body>
 
