@@ -35,37 +35,39 @@
     @yield('css-script')
 </head>
 
-<body class="collapsed-menu">
+<body class="collapsed-menu @if($emailView ?? '') collapsed-menu email @endif">
 <div class="br-logo"><a href="#"><span>[</span>Stock<i>Gestion</i><span>]</span></a></div>
 <div class="br-sideleft overflow-y-auto" id="navigation">
     <label class="sidebar-label pd-x-10 mg-t-20 op-3">Navigation</label>
     <ul class="br-sideleft-menu">
         <li class="br-menu-item">
             <a
+                @hasrole('admin|manager')
+                href="{{ route('home') }}"
+                class="br-menu-link {{ request()->getRequestUri() === '/home' ? 'active' : '' }}"
+                @endhasrole
                 @hasrole('seller')
-                    href="{{ route('selling.index') }}"
-                    class="br-menu-link {{ request()->getRequestUri() === '/selling' ? 'active' : '' }}"
+                href="{{ route('selling.index') }}"
+                class="br-menu-link {{ request()->getRequestUri() === '/selling' ? 'active' : '' }}"
                 @endhasrole
             >
                 <i class="menu-item-icon icon ion-ios-home-outline tx-24"></i>
-                <span class="menu-item-label">
-                    @hasrole('seller')
-                        Tableau de vente
-                    @endhasrole
-                    @hasrole('admin|manager')
-                        Dashboard
-                    @endhasrole
-                </span>
+            @hasrole('seller')
+                <span class="menu-item-label">Tableau de vente</span>
+            @endhasrole
+            @hasrole('admin|manager')
+            <span class="menu-item-label">Dashboard</span>
+            @endhasrole
             </a><!-- br-menu-link -->
         </li><!-- br-menu-item -->
         @hasrole('admin|manager')
         <li class="br-menu-item">
-            <a href="{{ route('notify') }}" class="br-menu-link {{ request()->getRequestUri() === '/notification' ? 'active' : '' }}">
-                <i class="menu-item-icon icon ion-ios-bell-outline tx-24"></i>
+            <a href="{{ route('messagerie.index') }}" class="br-menu-link {{ strpos(request()->getRequestUri(), 'messagerie')  ? 'active show-sub' : '' }}">
+                <i class="menu-item-icon icon ion-ios-email-outline tx-24"></i>
                 <!-- start: if statement -->
                 <span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
                 <!-- end: if statement -->
-                <span class="menu-item-label">Notification</span>
+                <span class="menu-item-label">Messagerie</span>
             </a><!-- br-menu-link -->
         </li><!-- br-menu-item -->
         @endhasrole
@@ -177,10 +179,7 @@
         <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href="#"><i class="icon ion-navicon-round"></i></a></div>
         <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href="#"><i class="icon ion-navicon-round"></i></a></div>
         <div class="input-group hidden-xs-down wd-170 transition">
-            <input name="query" id="searchbox" type="text" class="form-control" placeholder="Search">
-            <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
-            </span>
+
         </div><!-- input-group -->
     </div><!-- br-header-left -->
     <div class="br-header-right">
@@ -199,9 +198,9 @@
                     </div>
                     <hr>
                     <ul class="list-unstyled user-profile-nav">
-                        <li><a href="{{ route('profil', 'meledjearmel') }}"><i class="icon ion-ios-person"></i> Editer le profil</a></li>
-                        <li><a href="{{ route('setting', 'meledjearmel') }}"><i class="icon ion-ios-gear"></i> Paramètres</a></li>
-                        <li onclick="document.querySelector('#logout-form').submit()"><a href="#"><i class="icon ion-power"></i> Déconnexion</a></li>
+                        <li><a href="{{ route('profil', Auth::user()->username) }}"><i class="icon ion-ios-person"></i> Editer le profil</a></li>
+                        <li><a href="{{ route('setting', Auth::user()->username) }}"><i class="icon ion-ios-gear"></i> Paramètres</a></li>
+                        <li onclick="document.querySelector('#logout-form').submit()"><a style="cursor: pointer"><i class="icon ion-power"></i> Déconnexion</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -349,6 +348,7 @@
 <script src="{{ asset("/lib/echarts/echarts.min.js") }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset("/js/ResizeSensor.js") }}"></script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
 @yield('js-script')
     <script>
         $(function(){

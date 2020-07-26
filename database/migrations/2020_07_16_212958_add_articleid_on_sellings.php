@@ -15,7 +15,7 @@ class AddArticleidOnSellings extends Migration
     {
         Schema::table('sellings', function (Blueprint $table) {
             $table->unsignedBigInteger('article_id')->nullable();
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null')->onUpdate('set null');
         });
     }
 

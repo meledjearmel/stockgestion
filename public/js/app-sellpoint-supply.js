@@ -1,4 +1,20 @@
-const appLogin = new Vue ({
+let ArticleSelect = {
+    data: function () {
+        return {
+
+        }
+    },
+    props: ['articles'],
+    template: `<select id="article_id" name="article_id" class="form-control article-list-items select2-show-search">
+                    <option v-for="article in articles" :value="article.id">{{ article.name }} ( {{ article.value }} produit(s) restant(s) )</option>
+               </select>`,
+
+    methods : {
+
+    },
+}
+
+let appLogin = new Vue ({
     el: '#app-sellpoint-supply',
     data: {
         warehouse_id: 0,
@@ -11,11 +27,18 @@ const appLogin = new Vue ({
         },
     },
 
+    components: {
+        ArticleSelect
+    },
+
     methods: {
         sendWarehouseId: function () {
             axios.get('/sellpoint/json/' + this.warehouse_id)
             .then((res)=>{
                 this.state.articles = res.data
+                let items = $('.article-list-items').select2();
+                items.select2('destroy')
+                items.select2()
                 if (this.state.articles.length) {
                     this.state.wareUsed = true
                     this.state.placeholder = 'Choisissez un article'
@@ -23,9 +46,6 @@ const appLogin = new Vue ({
                     this.state.wareUsed = false
                     this.state.placeholder = 'Choisissez d\'abord un entrepot non vide'
                 }
-
-                let test = document.querySelector('#select2-article_id-container')
-                console.log(test)
 
             })
             .catch((err)=>{console.log(err)})
@@ -37,9 +57,6 @@ const appLogin = new Vue ({
             twoWay: true,
             bind: function (el, binding, vnode) {
                 $(el).select2().on("select2:select", (e) => {
-                    // v-model looks for
-                    //  - an event named "change"
-                    //  - a value with property path "$event.target.value"
                     el.dispatchEvent(new Event('change',{ target: e.target }));
                 });
             },

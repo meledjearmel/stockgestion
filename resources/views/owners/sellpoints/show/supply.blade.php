@@ -25,13 +25,15 @@
                     </div>
                     <div :class="state.wareUsed ? 'has-success' : 'has-danger'" class="form-group col-6">
 
-                        <select v-if="state.wareUsed" v-model="article_id" v-select='article_id' id="article_id" name="article_id" class="form-control select2-show-search" :data-placeholder="state.placeholder">
-                            <option v-for="article in state.articles" :value="article.id">@{{ article.name }} ( @{{ article.value }} produit(s) restant(s) )</option>
-                        </select>
+{{--                        <select v-if="state.wareUsed" v-model="article_id" v-select='article_id' id="article_id" name="article_id" class="form-control select2-show-search" :data-placeholder="state.placeholder">--}}
+{{--                            <option v-for="article in state.articles" :value="article.id">@{{ article.name }} ( @{{ article.value }} produit(s) restant(s) )</option>--}}
+{{--                        </select>--}}
 
-                        <select v-else class="form-control select2-show-search" :data-placeholder="state.placeholder" readonly>
+{{--                        <select v-else class="form-control select2-show-search" :data-placeholder="state.placeholder" readonly>--}}
 
-                        </select>
+{{--                        </select>--}}
+
+                        <article-select v-model="article_id" :articles="state.articles"></article-select>
 
                     </div>
                 </div>

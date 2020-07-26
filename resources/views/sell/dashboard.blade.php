@@ -78,7 +78,7 @@
                                         @else
                                             <tr class="odd">
                                                 <td colspan="5" class="dataTables_empty" valign="top">
-                                                    Aucun point de vente n'a été enregitré
+                                                    Aucune vente n'a été enregitré
                                                 </td>
                                             </tr>
                                         @endif

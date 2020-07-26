@@ -17,9 +17,9 @@ class CreatePivotsTables extends Migration
             $table->id();
             $table->integer('quantity')->unsigned();
             $table->unsignedBigInteger('warehouse_id')->nullable();
-            $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('set null')->onUpdate('set null');
             $table->unsignedBigInteger('article_id')->nullable();
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null')->onUpdate('set null');
             $table->timestamps();
         });
 
@@ -27,9 +27,9 @@ class CreatePivotsTables extends Migration
             $table->id();
             $table->integer('quantity')->unsigned();
             $table->unsignedBigInteger('sellpoint_id')->nullable();
-            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('set null')->onUpdate('set null');
             $table->unsignedBigInteger('article_id')->nullable();
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null')->onUpdate('set null');
             $table->timestamps();
         });
 
@@ -37,11 +37,11 @@ class CreatePivotsTables extends Migration
             $table->id();
             $table->integer('quantity')->unsigned();
             $table->unsignedBigInteger('warehouse_id')->nullable();
-            $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('set null')->onUpdate('set null');
             $table->unsignedBigInteger('sellpoint_id')->nullable();
-            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('set null')->onUpdate('set null');
             $table->unsignedBigInteger('article_id')->nullable();
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null')->onUpdate('set null');
             $table->timestamps();
         });
     }

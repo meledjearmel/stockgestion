@@ -58,7 +58,16 @@
                                     <button class="btn btn-info">Mettre à jour</button>
                                 </div>
                                 <div>
-                                    <a href="{{ route('sellpoint.index') }}"><button type="button" class="btn btn-outline-success">Voir mes points de ventes</button></a>
+                                    @if(route('sellpoint.setting.index', $sellpoint->id) === redirect()->back()->getTargetUrl() | session()->exists('url'))
+                                        @php
+                                            if (!session()->exists('url')) {
+                                                request()->session()->put('url', redirect()->back()->getTargetUrl());
+                                            }
+                                        @endphp
+                                        <a href="{{ session()->get('url') }}"><button type="button" class="btn btn-outline-primary">Retour</button></a>
+                                    @else
+                                        <a href="{{ route('sellpoint.index') }}"><button type="button" class="btn btn-outline-success">Voir mes points de ventes</button></a>
+                                    @endif
                                 </div>
                             </div><!-- form-group -->
                         </div><!-- form-layout -->

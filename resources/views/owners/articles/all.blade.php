@@ -19,8 +19,8 @@
                             <tr>
                                 <th class="wd-5p tx-center">#</th>
                                 <th class="wd-10p">Code</th>
-                                <th class="wd-30p">Libélé des articles</th>
-                                <th class="wd-30p">Caracteristiques</th>
+                                <th class="wd-20p">Libélé des articles</th>
+                                <th style="" class="wd-40p">Caracteristiques</th>
                                 <th class="wd-10p">Prix Unitaire</th>
                                 <th class="wd-15p tx-center">Action</th>
                             </tr>
@@ -32,7 +32,7 @@
                                             <td class="text-center">{{ $article->id }}</td>
                                             <td>{{ $article->code }}</td>
                                             <td>{{ $article->name }}</td>
-                                            <td>{{ $article->caracts }}</td>
+                                            <td style="max-width: 300px !important; text-overflow: ellipsis; overflow: hidden">{{ $article->caracts ?? 'Aucune caracteristique note' }}</td>
                                             <td class="text-center">{{ $article->price }}</td>
                                             <td class="tx-center">
                                                 <a href="{{ route('article.show', $article->id) }}"><button class="btn btn-outline-success mr-2 pd-t-2-force pd-b-2-force" style="cursor: pointer">VOIR</button></a>

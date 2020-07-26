@@ -15,7 +15,7 @@ class AddSellpointidToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('sellpoint_id')->nullable();
-            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('set null')->onUpdate('set null');
         });
     }
 

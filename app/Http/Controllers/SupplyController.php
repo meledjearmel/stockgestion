@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Sellpoint;
 use App\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -144,6 +145,8 @@ class SupplyController extends Controller
             'warehouse_id' => $warehouse->id,
             'sellpoint_id' => $sellpoint->id,
             'article_id' => $article->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         if ($article->pivot->quantity >= $request->get('quantity')) {

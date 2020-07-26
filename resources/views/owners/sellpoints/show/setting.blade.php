@@ -1,5 +1,8 @@
 @extends('owners.sellpoints.show')
 @section('show-content')
+    @php
+        session()->forget('url')
+    @endphp
     <div id="modaldemo5" class="modal fade" style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content tx-size-sm">
@@ -16,8 +19,7 @@
                         <div class="form-group">
                             <input name="slugDelete" class="form-control is-warning tx-center" placeholder="" type="text" autofocus>
                         </div>
-                        <button type="submit" class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium mg-b-20">
-                            Supprimer</button>
+                        <button type="submit" class="btn btn-danger tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium mg-b-20">Supprimer</button>
                     </form>
                 </div><!-- modal-body -->
             </div><!-- modal-content -->

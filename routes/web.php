@@ -21,9 +21,15 @@ Route::resource('sellpoint', SellpointController::class);
 Route::resource('article', ArticleController::class);
 Route::resource('employe', EmployeController::class);
 Route::resource('selling', SellingController::class);
+Route::resource('messagerie', MessagerieController::class);
 
 Route::group(['prefix' => 'selling'], function () {
     Route::get('articles/json', 'SellingController@articlesJson');
+});
+
+Route::group(['prefix' => 'article'], function () {
+    Route::get('{id}/transaction', 'ArticleController@transaction')->name('article.transaction');
+    Route::get('{id}/settings', 'ArticleController@showSetting')->name('article.setting.index');
 });
 
 Route::group(['prefix' => 'warehouse'], function () {
@@ -55,5 +61,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('edit/profil/{id}', 'HomeController@edit')->name('profil');
-Route::get('messages', 'HomeController@message')->name('notify');
 Route::get('settings/{id}', 'HomeController@setting')->name('setting');

@@ -4,6 +4,5 @@
 
 @endsection
 @section('child-js')
-    
-@endsection
 
+@endsection

@@ -18,7 +18,7 @@ class SellingController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','role:seller']);
     }
 
     /**
@@ -130,6 +130,7 @@ class SellingController extends Controller
                 if ($sellMonth->equalTo($todayMonth)) {
                     $mountMonth += (int) $selling->quantity * (int) $selling->article->price;
                 }
+
             }
 
             $AllSelled = (object) $AllSelled;

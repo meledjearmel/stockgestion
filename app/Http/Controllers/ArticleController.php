@@ -8,12 +8,21 @@ use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\StringInput;
 
+/**
+ * Class ArticleController
+ * @package App\Http\Controllers
+ */
 class ArticleController extends Controller
 {
+    /**
+     * ArticleController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,7 +34,6 @@ class ArticleController extends Controller
      */
     public function index()
     {
-
         $articles = Article::all();
         return view('owners.articles.all', compact('articles'));
     }
@@ -38,6 +46,20 @@ class ArticleController extends Controller
     public function create()
     {
         return view('owners.articles.create');
+    }
+
+    private function slugDecompose (String $str)
+    {
+        $parts = explode('/', $str);
+        $username = $parts[0];
+        $name = ucwords(str_replace('-', ' ', $parts[1]));
+        $id = $parts[2];
+
+        return (object) [
+            'username' => $username,
+            'name' => $name,
+            'id' => $id,
+        ];
     }
 
     /**
@@ -105,7 +127,7 @@ class ArticleController extends Controller
 
 
         $datas = [
-            'name' => $request->get('name'),
+            'name' => ucwords($request->get('name')),
             'code' => strtoupper($request->get('code')),
             'caracts' => $request->get('caracts'),
             'img_url' => $path ?? null,
@@ -126,7 +148,26 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
+        $article = Article::findOrFail($id);
+        $warehouses = $article->warehouses;
+        $sellpoints = $article->sellpoints;
 
+        $articleSlug = $article->admin->username.'/'.Str::slug($article->name).'/'.$article->id;
+
+        $bgcolor = [
+            'bg-purple',
+            'bg-info',
+            'bg-br-primary',
+            'bg-success',
+            'bg-warning',
+            'bg-danger',
+            'bg-indigo',
+            'bg-teal',
+            'bg-pink',
+            'bg-orange',
+        ];
+
+        return view('owners.articles.show.index', compact('article', 'warehouses', 'sellpoints', 'bgcolor', 'articleSlug'));
     }
 
     /**
@@ -202,10 +243,52 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $admin = Admin::findOrFail(Auth::id());
+        $article = $admin->articles()->where('id', $id)->get()->toArray();
+
+
+        if(!empty($article)) {
+
+            $validator = Validator::make($request->all(), [
+                'slugDelete' => 'required|regex:/^[a-z][a-z0-9\-]+\/[a-z0-9\-]+\/[0-9]+$/i|min:3',
+            ]);
+
+
+            if ($validator->fails()) {
+                return redirect ( )->route('article.show', $id);
+            }
+
+
+
+            $article = (object) $article[0];
+            $datas = $this->slugDecompose($request->get('slugDelete'));
+
+            $name = ucwords(strtolower($article->name));
+
+            if ($admin->username === $datas->username && $article->id == $datas->id && $name === $datas->name) {
+
+                $admin->articles()->where('id', $id)->delete();
+                return redirect()->route('article.index')->with(['success' => true, 'name' => $article->name]);
+
+            }
+
+            return redirect()->back();
+
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function transaction($id)
+    {
+        $article = Article::findOrFail($id);
+
+        return view('owners.articles.show.transaction', compact());
     }
 }

@@ -17,9 +17,9 @@ class CreateSellingsTable extends Migration
             $table->id();
             $table->integer('quantity');
             $table->unsignedBigInteger('sellpoint_id')->nullable();
-            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('sellpoint_id')->references('id')->on('sellpoints')->onDelete('set null')->onUpdate('set null');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('set null');
             $table->timestamps();
         });
     }
