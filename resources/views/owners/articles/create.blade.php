@@ -1,6 +1,5 @@
 @extends('layouts.swup')
 @section('child-css')
-    <link rel="stylesheet" href="{{ asset('lib/dropzone/dist/min/dropzone.min.css') }}">
 @endsection
 @section('content')
     <div id="app-article-edit">
@@ -58,8 +57,12 @@
 
                                 <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label class="form-control-label">L'image du produit: </label>
-                                        <input class="form-control" type="file" name="img_url" value="{{ old('img_url') }}" placeholder="Entrer la capacité de l'entrepot">
+                                        <label class="form-control-label">L'image de l'article: </label>
+                                        <input type="file" name="img_url" id="file-2" accept=".jpg, .jpeg, .png, .svg" class="inputfile">
+                                        <label for="file-2" class="if-outline if-outline-info">
+                                            <i class="icon ion-ios-upload-outline tx-24"></i>
+                                            <span>Choisissez l'image de l'article...</span>
+                                        </label>
                                         @error('img_url')
                                         <ul class="parsley-errors-list filled" id="parsley-id-26">
                                             <li class="parsley-required">{{ $message }}</li>
@@ -109,5 +112,29 @@
     </div>
 @endsection
 @section('child-js')
-<script src="{{ asset('lib/dropzone/dist/min/dropzone.min.js') }}"></script>
+<script>
+    (function () {
+        let $input	 = $( '.inputfile' ),
+            $label	 = $input.next( 'label' ),
+            labelVal = $label.html();
+
+        $input.on( 'change', function( e )
+        {
+            var fileName = '';
+
+            if( e.target.value )
+                fileName = e.target.value.split( '\\' ).pop();
+
+            if( fileName )
+                $label.find( 'span' ).html( fileName );
+            else
+                $label.html( labelVal );
+        });
+
+        // Firefox bug fix
+        $input
+            .on( 'focus', function(){ $input.addClass( 'has-focus' ); })
+            .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
+    })()
+</script>
 @endsection

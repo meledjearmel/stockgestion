@@ -6,6 +6,7 @@ use App\Employe;
 use App\Rules\OldPassword;
 use App\Sellpoint;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -179,11 +180,11 @@ class EmployeController extends Controller
         $user->assignRole($request->get('role'));
 
         if ($request->get('role') === 'admin') {
-            $role = 'L\'administrateur';
+            $role = ($user->sex === 'Masculin') ? 'L\'administrateur' : 'L\'administratrice';
         } elseif ($request->get('role') === 'manager') {
             $role = 'Le manager de';
         } else {
-            $role = 'Le vendeur';
+            $role = ($user->sex === 'Masculin') ? 'Le vendeur' : 'La vendeuse';
         }
 
         return redirect()->route('employe.create')->with(['success' => true, 'name' => $employe->name, 'lastname' => $employe->lastname, 'email' => $employe->email, 'password' => 'stockgestion', 'role' => $role]);
@@ -193,11 +194,61 @@ class EmployeController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show($id)
     {
-        $this->adminCheck();
+        $month = Carbon::now()->locale('fr_FR')->format('F');
+
+        $user = User::findOrFail($id);
+        $roles = $user->getRoleNames()->first();
+
+        $employe = Employe::find($id);
+        $sellpoint = $employe->sellpoint;
+        $admin = $sellpoint->admin;
+        $sellpoints = $admin->sellpoints;
+
+        $nbreEmploye = 0;
+        $nbreArticle = 0;
+        $soldeMensuel = 0;
+
+        foreach ($sellpoint->users as $emp) {
+            ++$nbreEmploye;
+        }
+
+        foreach ($sellpoint->articles as $art) {
+            $nbreArticle += $art->pivot->quantity;
+        }
+
+        foreach ($sellpoint->sellings as $selling) {
+            if($selling->created_at->format('F') === $month) {
+                $soldeMensuel += $selling->quantity * $selling->article->price;
+            }
+        }
+
+        $userSlug = $admin->username . '/' . $sellpoint->id . '/' . $user->username;
+
+        if ($roles === 'manager') {
+            $role = 'Manager de stock';
+        }
+        elseif ($roles === 'seller') {
+            $role = ($user->sex === 'Masculin') ? 'Vendeur' : 'Vendeuse';
+        }
+
+        $color = [
+            'bg-purple',
+            'bg-info',
+            'bg-br-primary',
+            'bg-warning',
+            'bg-indigo',
+            'bg-teal',
+            'bg-pink',
+            'bg-orange',
+        ];
+        $i = rand(0, 7);
+        $bgcolor = $color[$i];
+
+        return view('owners.employes.show.index', compact('user', 'role', 'sellpoint', 'sellpoints', 'userSlug', 'bgcolor', 'nbreEmploye', 'nbreArticle', 'soldeMensuel' ));
     }
 
     /**
@@ -208,7 +259,7 @@ class EmployeController extends Controller
      */
     public function edit($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -220,6 +271,43 @@ class EmployeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->get('change_role') === 'on') {
+
+            $user = User::findOrFail($id);
+
+            if ($request->get('role') === 'manager') {
+                $role = $request->get('role');
+            }
+            elseif ($request->get('role') === 'seller') {
+                $role = ($user->sex === 'Masculin') ? 'vendeur' : 'vendeuse';
+            }
+
+            if ($user->getRoleNames()->first() !== $request->get('role')) {
+                $old_role = $user->getRoleNames()->first();
+                $new_role = $request->get('role');
+
+                $user->removeRole($old_role);
+                $user->assignRole($new_role);
+
+                return redirect()->route('employe.show', $user->id)->with(['change_role' => true, 'role' => $role]);
+            }
+
+            return redirect()->route('employe.show', $user->id)->with(['no_change_role' => false, 'role' => $role]);
+
+        }
+
+//        if ($request->get('change_sellpoint') === 'on') {
+//
+//            $user = User::findOrFail($id);
+//            if ($user->sellpoint->id === $request->get('change_sellpoint')) {
+//
+//                return redirect()->route('employe.show', $user->id)->with(['change_sellpoint' => false]);
+//            }
+//
+//            return redirect()->route('employe.show', $user->id)->with(['change_sellpoint' => false]);
+//
+//        }
+
         if (Auth::id() == $id) {
 
             $user = User::find($id);
@@ -327,7 +415,6 @@ class EmployeController extends Controller
             }
 
         }
-        abort(404);
     }
 
     /**
@@ -338,6 +425,6 @@ class EmployeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->adminCheck();
     }
 }

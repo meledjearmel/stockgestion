@@ -101,9 +101,13 @@
                                 </div><!-- col-4 -->
 
                                 <div class="col-md-4">
-                                    <div class="form-group">
+                                    <div style="padding-bottom: 0px;" class="form-group">
                                         <label class="form-control-label">Photo: </label>
-                                        <input name="picture" accept=".jpg, .jpeg, .png" id="photo" type="file" id="file">
+                                        <input type="file" name="picture" id="file-2" accept=".jpg, .jpeg, .png, .svg" class="inputfile" >
+                                        <label for="file-2" class="if-outline if-outline-info">
+                                            <i class="icon ion-ios-upload-outline tx-24"></i>
+                                            <span>Choisissez une photo...</span>
+                                        </label>
                                         @error('picture')
                                         <ul class="parsley-errors-list filled" id="parsley-id-26">
                                             <li class="parsley-required">{{ $message }}</li>
@@ -135,7 +139,6 @@
                                     <div class="form-group">
                                         <label class="form-control-label">Role: <span class="tx-danger">*</span></label>
                                         <select name="role" class="form-control select2" data-placeholder="Choose Browser">
-                                            <option value="admin">Administrateur</option>
                                             <option value="manager">Manager de stock</option>
                                             <option value="seller">Vendeur</option>
                                         </select>
@@ -160,8 +163,31 @@
     </div>
 @endsection
 @section('child-js')
-    <script src="{{ asset('lib/dropzone/dist/min/dropzone.min.js') }}"></script>
     <script>
+        (function () {
+            let $input	 = $( '.inputfile' ),
+                $label	 = $input.next( 'label' ),
+                labelVal = $label.html();
+
+            $input.on( 'change', function( e )
+            {
+                var fileName = '';
+
+                if( e.target.value )
+                    fileName = e.target.value.split( '\\' ).pop();
+
+                if( fileName )
+                    $label.find( 'span' ).html( fileName );
+                else
+                    $label.html( labelVal );
+            });
+
+            // Firefox bug fix
+            $input
+                .on( 'focus', function(){ $input.addClass( 'has-focus' ); })
+                .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
+        })()
+
         $('#phoneMask').mask('(999) 99-999-999');
     </script>
 @endsection

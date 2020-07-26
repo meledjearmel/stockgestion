@@ -280,15 +280,4 @@ class ArticleController extends Controller
 
         }
     }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function transaction($id)
-    {
-        $article = Article::findOrFail($id);
-
-        return view('owners.articles.show.transaction', compact());
-    }
 }

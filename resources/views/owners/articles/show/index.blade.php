@@ -9,7 +9,7 @@
                     </button>
                     <i class="icon icon ion-ios-close-outline tx-100 tx-danger lh-1 mg-t-20 d-inline-block"></i>
                     <h4 class="tx-danger  tx-semibold mg-b-20">Danger: suppression de l'article !</h4>
-                    <p class="mg-b-20 mg-x-20">Si vous etes sure de supprimer cet entrepot entrer <strong>{{ $articleSlug }}</strong></p>
+                    <p class="mg-b-20 mg-x-20">Si vous etes sure de supprimer cet article entrer <strong>{{ $articleSlug }}</strong></p>
                     <form action="{{ route('article.destroy', $article->id) }}" method="POST">
                         @method('DELETE')
                         @csrf

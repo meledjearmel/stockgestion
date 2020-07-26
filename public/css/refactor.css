@@ -1,3 +1,11 @@
 #select2-sellpoint_id-fc-container {
     padding-left: 10px !important;
 }
+
+.select2-container--default {
+    width: 100% !important;
+}
+
+.select2-dropdown {
+    z-index: 9001;
+}
