@@ -195,7 +195,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-250">
                     <div class="tx-center">
-                        <a href="#"><img id="picture" src="{{ asset($profil) }}" class="wd-80 rounded-circle" alt=""></a>
+                        <a href="{{ route('profil', Auth::user()->username) }}"><img id="picture" src="{{ asset($profil) }}" class="wd-80 rounded-circle" alt="User profil" title="Editer votre profil"></a>
                         <h6 class="logged-fullname">{{ Auth::user()->lastname }} {{ Auth::user()->name }}</h6>
                         <p>{{ Auth::user()->email }}</p>
                     </div>
