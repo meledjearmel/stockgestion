@@ -94,23 +94,12 @@
         </li>
         <li class="br-menu-item">
             <a href="#" class="br-menu-link {{ strpos(request()->getRequestUri(), 'sellpoint')  ? 'active show-sub' : '' }} with-sub">
-                <i class="menu-item-icon icon ion-bag tx-20"></i>
+                <i class="menu-item-icon fa fa-shopping-cart tx-20"></i>
                 <span class="menu-item-label">Point de vente</span>
             </a><!-- br-menu-link -->
             <ul class="br-menu-sub">
                 <li class="sub-item"><a href="{{ route('sellpoint.index') }}" class="sub-link {{ request()->getRequestUri() === '/sellpoint' ? 'active' : '' }}">Consulter</a></li>
                 <li class="sub-item"><a href="{{ route('sellpoint.create') }}" class="sub-link {{ request()->getRequestUri() === '/sellpoint/create' ? 'active' : '' }}">Creer un point de vente</a></li>
-            </ul>
-        </li><!-- br-menu-item -->
-        <li class="br-menu-item">
-            <a href="#" class="br-menu-link {{ strpos(request()->getRequestUri(), 'supply/')  ? 'active show-sub' : '' }} with-sub">
-                <i class="menu-item-icon fa fa-shopping-cart tx-20"></i>
-                <span class="menu-item-label">Alimentation</span>
-            </a><!-- br-menu-link -->
-            <ul class="br-menu-sub">
-                <li class="sub-item"><a href="{{ route('warehouse.supply.index') }}" class="sub-link {{ request()->getRequestUri() === '/supply/ware' ? 'active' : '' }}">Alimenter un entrepot</a></li>
-                <li class="sub-item"><a href="{{ route('sellpoint.supply.index') }}" class="sub-link {{ request()->getRequestUri() === '/suplly/sell' ? 'active' : '' }}">Alimenter un point de vente</a></li>
-                <li class="sub-item"><a href="" class="sub-link">Bilan</a></li>
             </ul>
         </li><!-- br-menu-item -->
         <li class="br-menu-item">
