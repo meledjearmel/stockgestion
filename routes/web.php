@@ -51,12 +51,6 @@ Route::group(['prefix' => 'sellpoint'], function () {
     Route::get('/json/{id}', 'SellpointController@warehouseJson')->name('sellpoint.warehouse.get');
 });
 
-Route::group(['prefix' => 'supply'], function () {
-    Route::get('ware', 'SupplyController@warehouseHome')->name('warehouse.supply.index');
-
-    Route::get('sell', 'SupplyController@sellpointHome')->name('sellpoint.supply.index');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
