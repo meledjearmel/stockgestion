@@ -19,12 +19,13 @@ class SellingController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','role:seller']);
+        Carbon::setLocale(config('app.locale'));
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -38,7 +39,7 @@ class SellingController extends Controller
      */
     public function create()
     {
-
+        abort(404);
     }
 
     /**
@@ -93,7 +94,7 @@ class SellingController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
      */
     public function show($id)
     {
@@ -105,9 +106,9 @@ class SellingController extends Controller
             $mountYester = 0;
             $mountMonth = 0;
 
-            foreach ($employe->sellings as $selling) {
+            foreach ($sellings as $selling) {
 
-                $desc = $selling->article->caracts ? '( '.$selling->article->caracts.' )' : '';
+                $desc = $selling->article->caracts ? ' ('.$selling->article->caracts.')' : '';
 
                 $account = (object) [
                     'name' => $selling->article->name . $desc,
@@ -150,7 +151,7 @@ class SellingController extends Controller
      */
     public function edit($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -162,7 +163,7 @@ class SellingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        abort(404);
     }
 
     /**

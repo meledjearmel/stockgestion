@@ -1,4 +1,9 @@
 @extends('layouts.swup')
+
+@section('child-css')
+    <link href="{{ asset("lib/morris.js/morris.css") }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div id="app-selling">
         <div class="br-mainpanel">
@@ -63,24 +68,89 @@
                     </div><!-- col-4 -->
 
                 </div><!-- row -->
-                <h6 class="br-section-label">Line Chart</h6>
-                <p class="br-section-text">Below is the basic line chart example.</p>
 
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div id="morrisLine1" class="ht-200 ht-sm-300 bd"></div>
-                    </div><!-- col-6 -->
-                    <div class="col-xl-6 mg-t-20 mg-xl-t-0">
-                        <div id="morrisLine2" class="ht-200 ht-sm-300 bd"></div>
-                    </div><!-- col-6 -->
-                </div><!-- row -->
+                <div class="br-section-wrapper mg-t-20-force">
 
-                <p class="br-section-label-sm">Javascript Code</p>
-                <pre><code class="javascript pd-20">new Morris.Line({ ... );</code></pre>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="">
+                                <h6>Articles disponible en entrepot</h6>
+                            </div>
+                            <div class="pd-b-30">
+                                <div id="chartPieContent" data-articles="{{ json_encode($articles) }}" class="ht-300 ht-sm-300"></div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 mg-t-20 mg-xl-t-0">
+                            <div class="mg-l-10-force">
+                                <h6>Graphique du nombre d'article sortie les 7 derniers jours</h6>
+                            </div>
+                            <div id="morrisLine2" data-weeksell="{{ json_encode($weekSells) }}" class="ht-200 ht-sm-300"></div>
+                        </div><!-- col-6 -->
+                    </div><!-- row -->
+
+                    <div class="row mg-t-20-force">
+                        <div class="card bd-0 shadow-base pd-25 col-12 mg-t-20">
+                            <div class="d-md-flex justify-content-between">
+                                <div>
+                                    <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Lste des articles disponible</h6>
+                                    <p>Derniere mise a jour  {{ \Carbon\Carbon::now()->format('d M, Y \a H:i') }}</p>
+                                </div>
+                                <div class="wd-200">
+                                    <select class="form-control select2 select2-hidden-accessible" data-placeholder="Choose location" tabindex="-1" aria-hidden="true">
+                                        <option label="Choose one"></option>
+                                        <option value="enable" selected="">Disponible</option>
+                                        <option value="disable">Vendu</option>
+                                    </select>
+                                </div><!-- wd-200 -->
+                            </div><!-- d-flex -->
+                            <div class="row mg-t-20">
+
+                                <div class="table-wrapper">
+                                    <table id="datatable1" class="table display responsive nowrap">
+                                        <thead>
+                                        <tr>
+                                            <th class="wd-5p tx-center">#</th>
+                                            <th class="wd-35p">Libéle de l'entrepot</th>
+                                            <th class="wd-35p">Localité de l'entrepot</th>
+                                            <th class="wd-10p">Capacité</th>
+                                            <th class="wd-15p tx-center">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @if(!empty($warehouses))
+                                            @foreach($warehouses as $warehouse)
+                                                <tr>
+                                                    <td class="text-center">{{ $warehouse->id }}</td>
+                                                    <td>{{ $warehouse->name }}</td>
+                                                    <td>{{ $warehouse->location }}</td>
+                                                    <td class="text-center">{{ $warehouse->capacity }}</td>
+                                                    <td class="tx-center">
+                                                        <a href="{{ route('warehouse.show', $warehouse->id) }}"><button class="btn btn-outline-success mr-2 pd-t-2-force pd-b-2-force" style="cursor: pointer">VOIR</button></a>
+                                                        <a href="{{ route('warehouse.edit', $warehouse->id) }}"><button class="btn btn-outline-info ml-2 pd-t-2-force pd-b-2-force" style="cursor: pointer">EDITER</button></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr class="odd">
+                                                <td colspan="4" class="dataTables_empty" valign="top">
+                                                    Aucun entrepot n'a été enregitré
+                                                </td>
+                                            </tr>
+                                        @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div><!-- row -->
+                        </div>
+                    </div>
+
+                </div><!-- br-section-wrapper -->
             </div><!-- br-pagebody -->
         </div><!-- br-mainpanel -->
     </div>
 @endsection
+
 @section('child-js')
     <script src="{{ asset('js/charts/warehouse.show.content.js') }}"></script>
     <script src="{{ asset('lib/raphael/raphael.min.js') }}"></script>

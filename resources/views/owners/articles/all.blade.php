@@ -31,7 +31,7 @@
                                         <tr>
                                             <td class="text-center">{{ $article->id }}</td>
                                             <td>{{ $article->code }}</td>
-                                            <td>{{ $article->name }}</td>
+                                            <td style="max-width: 300px !important; text-overflow: ellipsis; overflow: hidden">{{ $article->name }}</td>
                                             <td style="max-width: 300px !important; text-overflow: ellipsis; overflow: hidden">{{ $article->caracts ?? 'Aucune caracteristique note' }}</td>
                                             <td class="text-center">{{ $article->price }}</td>
                                             <td class="tx-center">

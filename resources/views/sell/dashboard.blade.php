@@ -46,6 +46,7 @@
                         <div id="ch2" class="ht-50 tr-y-1"></div>
                     </div>
                 </div><!-- col-3 -->
+
             </div><!-- row -->
 
             <div class="row row-sm mg-t-20">
@@ -68,7 +69,7 @@
                                         @if(!empty($AllSelled))
                                             @foreach($AllSelled as $selled)
                                                 <tr>
-                                                    <td>{{ $selled->name }}</td>
+                                                    <td title="{{ $selled->name }}" style="max-width: 600px !important; text-overflow: ellipsis; overflow: hidden">{{ $selled->name }}</td>
                                                     <td class="text-center">{{ $selled->price }} XOF</td>
                                                     <td class="text-center">{{ $selled->count }}</td>
                                                     <td class="text-center">{{ $selled->mount }} XOF</td>
