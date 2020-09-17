@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a35a90ca-dc40-4cb9-bbd8-a5d8c0e27d88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/owners/employes/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/employes/create.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +248,7 @@
       <workItem from="1595842465885" duration="2434000" />
       <workItem from="1595867667448" duration="25202000" />
       <workItem from="1595927159285" duration="35000" />
-      <workItem from="1600337817794" duration="1960000" />
+      <workItem from="1600337817794" duration="4993000" />
     </task>
     <servers />
   </component>
@@ -291,10 +292,10 @@
       <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state x="186" y="30" width="977" height="733" key="SettingsEditor/0.30.1366.738@0.30.1366.738" timestamp="1595759890495" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1595542815161">
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1600340634446">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.30.1366.738@0.30.1366.738" timestamp="1595542815161" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.30.1366.738@0.30.1366.738" timestamp="1600340634446" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -138,9 +138,10 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-control-label">Role: <span class="tx-danger">*</span></label>
-                                        <select name="role" class="form-control select2" data-placeholder="Choose Browser">
+                                        <select name="role" class="form-control select2" data-placeholder="Choisis le role">
+                                            <option value="admin">Super Administrateur</option>
                                             <option value="manager">Manager de stock</option>
-                                            <option value="seller">Vendeur</option>
+                                            <option value="seller">Vendeur</option>b1vb23
                                         </select>
                                     </div>
                                 </div><!-- col-4 -->
