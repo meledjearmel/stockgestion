@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a35a90ca-dc40-4cb9-bbd8-a5d8c0e27d88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SellingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SellingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/charts/manager.morrischart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/charts/manager.morrischart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/manager/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/manager/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/owners/articles/all.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/owners/articles/all.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/sell/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/sell/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +141,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Blade" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/owners/employes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="Configurable.PHP.Blade" />
   </component>
@@ -187,6 +182,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -249,12 +245,14 @@
       <workItem from="1595729786481" duration="20057000" />
       <workItem from="1595782634281" duration="27893000" />
       <workItem from="1595842465885" duration="2434000" />
-      <workItem from="1595867667448" duration="24364000" />
+      <workItem from="1595867667448" duration="25202000" />
+      <workItem from="1595927159285" duration="35000" />
+      <workItem from="1600337817794" duration="1960000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
     <state x="278" y="60" width="800" height="680" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592678679254">
@@ -277,14 +275,14 @@
       <screen x="0" y="30" width="1366" height="738" />
     </state>
     <state x="533" y="206" width="281" height="392" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.30.1366.738@0.30.1366.738" timestamp="1594817781992" />
-    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1595761163793">
+    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1600339283086">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.30.1366.738@0.30.1366.738" timestamp="1595761163793" />
-    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl" timestamp="1595763301404">
+    <state x="412" y="152" width="524" height="487" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.30.1366.738@0.30.1366.738" timestamp="1600339283086" />
+    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl" timestamp="1595927194625">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
-    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl/0.30.1366.738@0.30.1366.738" timestamp="1595763301404" />
+    <state x="462" y="147" width="424" height="487" key="FileChooserDialogImpl/0.30.1366.738@0.30.1366.738" timestamp="1595927194625" />
     <state width="164" height="456" key="HiddenNamespacesPopup" timestamp="1593107042389">
       <screen x="0" y="30" width="1366" height="738" />
     </state>
@@ -303,7 +301,6 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/js/charts/manager.morrischart.js</url>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
