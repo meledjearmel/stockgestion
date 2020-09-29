@@ -79,7 +79,6 @@ class ArticleController extends Controller
             'max' => 'La taille de l\'image ne doit pas depasser 1Mo',
             'numeric' => 'Ce champs doit contenir uniquement des chiffes',
             'unique' => 'Le code a déjà été utilisé pour un article',
-            ''
         ];
 
         if($update) {

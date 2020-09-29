@@ -33,6 +33,7 @@
 
     <!-- CSS File Herited -->
     @yield('css-script')
+    @livewireStyles
 </head>
 
 <body class="collapsed-menu @if($emailView ?? '') collapsed-menu email @endif">
@@ -385,6 +386,7 @@
             tryImg(picture)
         })()
     </script>
+@livewireScripts
     </body>
 
 </html>
