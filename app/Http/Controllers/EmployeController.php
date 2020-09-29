@@ -89,7 +89,7 @@ class EmployeController extends Controller
                 'contact' => 'required|regex:/^\([0-9]{3}\) [0-9]{2}(\-[0-9]{3}){2}/i',
                 'role' => 'required',
                 'email' => 'required|email|unique:users',
-                'picture' => $withImage ? 'image|mimes:jpg,jpeg,png|max:1000' : 'nullable',
+                'picture' => 'nullable|image|mimes:jpg,jpeg,png|max:1000',
                 'sellpoint_id' => 'required|numeric'
             ], $messages);
 

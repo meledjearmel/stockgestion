@@ -43,7 +43,7 @@ class CreateArticle extends Component
     public function updatedPhoto()
     {
         $this->validate([
-            'photo' => 'image|max:1024',
+            'photo' => 'image|mimes:jpg,jpeg,png|max:1024',
         ]);
     }
 
