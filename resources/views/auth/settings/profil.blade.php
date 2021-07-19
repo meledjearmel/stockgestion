@@ -86,12 +86,8 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-control-label">Photo: </label>
-                                        <input type="file" name="picture" id="file-2" accept=".jpg, .jpeg, .png, .svg" class="inputfile">
-                                        <label for="file-2" class="if-outline if-outline-info">
-                                            <i class="icon ion-ios-upload-outline tx-24"></i>
-                                            <span>Choisissez une photo...</span>
-                                        </label>
+                                        @livewire('update-user-pic')
+
                                         @error('picture')
                                         <ul class="parsley-errors-list filled" id="parsley-id-26">
                                             <li class="parsley-required">{{ $message }}</li>
